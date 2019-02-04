@@ -5,21 +5,22 @@ import os
 
 app = Flask(__name__)
 
+
 @app.route('/api/v1/resultados', methods=['GET'])
 def resultados():
-	html_doc = urlopen("http://www.capitaldepremios.com.br/resultados-atualizado/").read()
-	soup = BeautifulSoup(html_doc, "html.parser")
+    html_doc = urlopen(
+        "http://www.capitaldepremios.com.br/resultados-atualizado/").read()
+    soup = BeautifulSoup(html_doc, "html.parser")
 
-	data = []
-	for Results in soup.find_all("div", class_="results"):
-		grupo = Results.find("div", class_="grupo").find("lu", class_="numeros")
+    data = []
+    for Results in soup.find_all("div", class_="results"):
+        grupo = Results.find("div", class_="grupo").find(
+            "lu", class_="numeros")
 
-	data.append({'numeros': grupo.text.strip()})
-	return jsonify({'Resultado': data})
+        data.append({'numeros': Results.text.strip()})
+        return jsonify({'Resultado': data})
 
 
 if __name__ == '__main__':
-	port = int(os.environ.get('PORT', 5000))
-	app.run(host='127.0.0.1', port=port)
-
-
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='127.0.0.1', port=port)
