@@ -2,14 +2,6 @@ from flask import Flask, jsonify, request
 from bs4 import BeautifulSoup
 from urllib.request import urlopen, Request
 import os
-import pkg_resources
-
-
-flsk_v = pkg_resources.get_distribution("flask").version
-batf_v = pkg_resources.get_distribution("bs4").version
-
-print("bs4 version: {}\n".format(batf_v))
-print("flask version: {}\n".format(flsk_v))
 
 app = Flask(__name__)
 
